@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+{% block title %}Add New Product{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Add New Product</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control" placeholder="Enter product description" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" step="0.01" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" name="stock" id="stock" class="form-control" placeholder="Enter stock quantity" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="image_url" class="form-label">Image URL</label>
+            <input type="file" name="image_url" id="image_url" class="form-control" placeholder="Enter image URL" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="sku" class="form-label">SKU (Stock Keeping Unit)</label>
+            <input type="text" name="sku" id="sku" class="form-control" placeholder="Enter SKU" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="date_added" class="form-label">Date Added</label>
+            <input type="date" name="date_added" id="date_added" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" class="form-control" required>
+                <option value="">Select a category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add Product</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+    </form>
+{% endblock %}
