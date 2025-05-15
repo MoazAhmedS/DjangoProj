@@ -4,35 +4,36 @@ from category.models import category
 from product.models import product
 
 def index(req):
-    products = product.objects.all()
+    products = product.get_products()
     context = {'products':products}
     return render(req, template_name='index.html',context=context)
 
 def new_product(req):
-    categories = category.objects.all()
+    categories = category.getAll()
     context = {'categories':categories}
-    print(req.FILES.get('image_url'))         # Should be a single UploadedFile
-    print(type(req.FILES.get('image_url')))   # Should be <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>
 
     if req.method == 'POST':
         categoryObj = category.objects.get(pk=req.POST['category'])
 
-        product.objects.create(
+        product.add_product(
             name=req.POST['name'],
-            description=req.POST['description'],
+            des=req.POST['description'],
             price=req.POST['price'],
             stock=req.POST['stock'],
-            image=req.FILES['image_url'],
+            img=req.FILES['image_url'],
             sku=req.POST['sku'],
-            date_added=req.POST['date_added'],
-            categoryobj=categoryObj
+            date=req.POST['date_added'],
+            catID=categoryObj
         )
         return redirect('index')
     return render(req, template_name='add_product.html',context=context)
+
 
 
 def upd_product(req,id):
     pass
 
 def del_product(req,id):
-    pass 
+    product.del_product(id)
+    return redirect('index')
+

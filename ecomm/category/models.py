@@ -5,3 +5,7 @@ class category(models.Model):
     id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=100)
     description=models.TextField()
+
+    @classmethod
+    def getAll(cls):
+        return cls.objects.all()
