@@ -9,3 +9,6 @@ class category(models.Model):
     @classmethod
     def getAll(cls):
         return cls.objects.all()
+    
+    def __str__(self):
+        return self.name

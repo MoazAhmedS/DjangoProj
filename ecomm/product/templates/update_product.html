@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block title %}Add New Product{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Update Product</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Current Image</label><br>
+        <img src="{{ product_image }}" alt="Current Image" style="max-width: 400px;">
+    </div>
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-success">Add Product</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+</form>
+{% endblock %}
