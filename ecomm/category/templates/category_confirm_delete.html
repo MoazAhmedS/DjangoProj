@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block title %}Add New Category{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-danger p-4">
+    <h4 class="mb-3">Delete Confirmation</h4>
+    <p>Are you sure you want to delete "<strong>{{ object.name }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{%endblock%}

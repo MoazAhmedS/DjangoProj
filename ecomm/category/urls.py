@@ -1,10 +1,12 @@
 from django.urls import path
 from django.urls import include
 from category.views import *
+from .views import CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 
 urlpatterns = [
-    path('/new/',new_categ,name='n_categ'),
-    path('/update/<int:id>/',upd_categ,name='u_categ'),
-    path('/delete/<int:id>/',del_categ,name='d_categ'),
+    path('',CategoryListView.as_view(),name='category_list'),
+    path('new/',CategoryCreateView.as_view(),name='category_add'),
+    path('/update/<int:pk>/',CategoryUpdateView.as_view(),name='category_edit'),
+    path('/delete/<int:pk>/',CategoryDeleteView.as_view(),name='category_delete'),
     
 ]

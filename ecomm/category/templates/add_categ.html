@@ -4,20 +4,11 @@
 
 {% block content %}
     <h2 class="mb-4">Add New Category</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <div class="mb-3">
-            <label for="name" class="form-label">Category Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Category name" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <input type="text" name="description" id="description" class="form-control" placeholder="Enter Category description" required>
-        </div>
-
-        <button type="submit" class="btn btn-success">Add Category</button>
-        <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
-    </form>
+<form method="post" class="bg-white p-4 rounded shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
 {% endblock %}
+    
