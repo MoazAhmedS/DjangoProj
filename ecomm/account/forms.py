@@ -34,14 +34,6 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        pw = cleaned_data.get("password")
-        pw2 = cleaned_data.get("confirm_password")
-        if pw and pw2 and pw != pw2:
-            self.add_error('confirm_password', "Passwords do not match.")
-        return cleaned_data
-
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
