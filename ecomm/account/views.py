@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 class LoginView(View):
     def get(self, request):
-        return render(request, 'registration/login.html', {'form': LoginForm()})
+        return render(request, 'login.html', {'form': LoginForm()})
 
     def post(self, request):
         form = LoginForm(data=request.POST)
@@ -25,12 +25,11 @@ class LoginView(View):
 
 class Signup(View):
     def get(self,request):
-        return render(request,'/signup.html',{'form':RegistrationForm()})
+        return render(request,'/register.html',{'form':RegistrationForm()})
     def post(self,request):
         form=RegistrationForm(data=request.POST)
         if(form.is_bound and form.is_valid()):
             form.save()
-            return redirect('/login')
+            return redirect('login')
         else:
-
-                return redirect('/login')
+            return redirect('login')
