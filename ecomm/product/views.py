@@ -44,8 +44,6 @@ def upd_product(req,id):
     if req.method=='POST':
         form=UpdateProductForm(data=req.POST,files=req.FILES,initial=initail_data)
         if form.is_bound and form.is_valid():
-            if os.path.exists(oldPro.image.path):
-                os.remove(oldPro.image.path) 
             oldPro.name=form.cleaned_data['name']
             oldPro.description=form.cleaned_data['description']
             oldPro.price=form.cleaned_data['price']
