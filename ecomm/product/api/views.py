@@ -5,6 +5,7 @@ from ..models import product
 from .serializers import ProductSeriliz
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 @api_view(['GET', 'POST'])
 def product_list_create(request):
@@ -28,3 +29,10 @@ class ProductUpdateView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
+    queryset = product.get_products()
+    serializer_class = ProductSeriliz
+    lookup_field = 'id'
+

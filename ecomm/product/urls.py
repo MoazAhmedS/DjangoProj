@@ -6,9 +6,14 @@ from .api.views import *
 
 urlpatterns = [
 
+    
+    #Generic API
+    path('API/Gen/<int:id>', ProductDetailUpdateDeleteView.as_view()),
+
+    #Class based API Update
     path('API/Class/<int:id>', ProductUpdateView.as_view()),
     
-    #function based views Create/List
+    #function based API Create/List
     path('API/', product_list_create),
 
 
