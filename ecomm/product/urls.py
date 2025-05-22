@@ -2,11 +2,16 @@ from django.urls import path
 from django.urls import include
 from product.views import *
 from .api.views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'set', ProductViewSet)
 
 
 urlpatterns = [
+    #API ViewSet
+    path('APIView/', include(router.urls)),
 
-    
     #Generic API
     path('API/Gen/<int:id>', ProductDetailUpdateDeleteView.as_view()),
 

@@ -6,6 +6,7 @@ from .serializers import ProductSeriliz
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 
 @api_view(['GET', 'POST'])
 def product_list_create(request):
@@ -35,4 +36,26 @@ class ProductDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = product.get_products()
     serializer_class = ProductSeriliz
     lookup_field = 'id'
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        return Response({'message': 'Product updated', 'data': response.data}, status=status.HTTP_200_OK)
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.status = False
+        instance.save()
+        return Response({'message': 'Product soft-deleted'}, status=status.HTTP_200_OK)
+
+class ProductViewSet(ModelViewSet):
+    queryset = product.get_products()
+    serializer_class = ProductSeriliz
+    lookup_field = 'id' 
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        return Response({'msg': 'Product updated', 'data': response.data}, status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.status = False
+        instance.save()
+        return Response({'msg': 'Product soft-deleted'}, status=status.HTTP_200_OK)
