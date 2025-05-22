@@ -1,11 +1,13 @@
 from django.urls import path
 from django.urls import include
 from product.views import *
-from .api.views import product_list_create
+from .api.views import *
 
 
 urlpatterns = [
 
+    path('API/Class/<int:id>', ProductUpdateView.as_view()),
+    
     #function based views Create/List
     path('API/', product_list_create),
 
